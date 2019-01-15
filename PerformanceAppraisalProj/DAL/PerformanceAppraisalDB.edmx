@@ -1,0 +1,760 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PerformanceAppraisalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActionHistory">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="200" />
+          <Property Name="AppraisalDocNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Action" Type="nvarchar" MaxLength="150" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="AppraisalYear" Type="int" />
+          <Property Name="Responsibility" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AppraisalDocHeader">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppraisalDocNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="AppraisalYear" Type="int" />
+          <Property Name="AppraisalPeriodFrom" Type="date" />
+          <Property Name="AppraisalPeriodTo" Type="date" />
+          <Property Name="AppraisalDate" Type="date" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Position" Type="nvarchar" MaxLength="100" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CompanyID" Type="nvarchar" MaxLength="10" />
+          <Property Name="EmployeeStrength" Type="nvarchar" MaxLength="500" />
+          <Property Name="EmployeeImprovement" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="AppraisalStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="AppraisalGrade" Type="char" MaxLength="1" />
+          <Property Name="AppraisalTotalScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AppraisalDocLine">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppraisalDocNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="AppraisalDocLineNo" Type="int" />
+          <Property Name="QuestionLineNo" Type="int" />
+          <Property Name="QuestionDesc" Type="nvarchar" MaxLength="500" />
+          <Property Name="Score" Type="int" />
+          <Property Name="CalculatedScore" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="QuestionWeight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="QuestionType" Type="int" />
+        </EntityType>
+        <EntityType Name="AppraisalGradeMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppraisalGrade" Type="char" MaxLength="1" />
+          <Property Name="AppraisalGradeDesc" Type="nvarchar" MaxLength="50" />
+          <Property Name="ScoreMin" Type="int" />
+          <Property Name="ScoreMax" Type="int" />
+        </EntityType>
+        <EntityType Name="AppraisalStatusMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppraisalStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="AppraisalStatusID" Type="int" />
+        </EntityType>
+        <EntityType Name="AppraisalTemplate">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppraisalYear" Type="int" />
+          <Property Name="QuestionLineNo" Type="int" />
+          <Property Name="QuestionDesc" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="QuestionType" Type="int" />
+          <Property Name="QuestionWeight" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="ApprovalHistory">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionDate" Type="datetime" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="200" />
+          <Property Name="Action" Type="nvarchar" MaxLength="20" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+          <Property Name="AppraisalDocNo" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Attachments">
+          <Key>
+            <PropertyRef Name="FileNo" />
+          </Key>
+          <Property Name="FileNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="250" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileDescription" Type="nvarchar" MaxLength="150" />
+          <Property Name="Attachment" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="JobsID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="CompanyMaster">
+          <Key>
+            <PropertyRef Name="CompanyNo" />
+          </Key>
+          <Property Name="CompanyNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyAD" Type="nvarchar" MaxLength="10" />
+          <Property Name="CompanyCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyFullName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CompanyGroup" Type="nvarchar" MaxLength="150" />
+          <Property Name="CompanyType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="150" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="DepartmentMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="EmployeeGroupMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeGroup" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="10" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CompanyID" Type="nvarchar" MaxLength="10" />
+          <Property Name="ContractStart" Type="date" />
+          <Property Name="ContractEnd" Type="date" />
+          <Property Name="AppraisalDate" Type="date" />
+          <Property Name="FirstManager" Type="nvarchar" MaxLength="200" />
+          <Property Name="SecondManager" Type="nvarchar" MaxLength="200" />
+          <Property Name="HRStaff" Type="nvarchar" MaxLength="200" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Position" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmployeeGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeSubGroup" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractYear" Type="int" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+          <Property Name="FirstManagerMail" Type="nvarchar" MaxLength="150" />
+          <Property Name="SecondManagerMail" Type="nvarchar" MaxLength="150" />
+          <Property Name="AppraisalYear" Type="nvarchar" MaxLength="10" />
+          <Property Name="EmployeeType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EmployeeSubGroupMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeSubGroup" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="HREmployee">
+          <Key>
+            <PropertyRef Name="EmployeeNo" />
+          </Key>
+          <Property Name="EmployeeNo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GivenName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="200" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+          <Property Name="DomainName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="EmployeeID" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="QuestionTypeMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionType" Type="int" />
+          <Property Name="QuestionTypeDesc" Type="nvarchar" MaxLength="100" />
+          <Property Name="QuestionTypeDesc2" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ScoreMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Score" Type="int" />
+          <Property Name="ScoreDesc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="spListAppraisalCompleteTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DomainName" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PerformanceAppraisalModelStoreContainer">
+          <EntitySet Name="ActionHistory" EntityType="Self.ActionHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppraisalDocHeader" EntityType="Self.AppraisalDocHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppraisalDocLine" EntityType="Self.AppraisalDocLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppraisalGradeMaster" EntityType="Self.AppraisalGradeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppraisalStatusMaster" EntityType="Self.AppraisalStatusMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppraisalTemplate" EntityType="Self.AppraisalTemplate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApprovalHistory" EntityType="Self.ApprovalHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attachments" EntityType="Self.Attachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyMaster" EntityType="Self.CompanyMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepartmentMaster" EntityType="Self.DepartmentMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeGroupMaster" EntityType="Self.EmployeeGroupMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeMaster" EntityType="Self.EmployeeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeSubGroupMaster" EntityType="Self.EmployeeSubGroupMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HREmployee" EntityType="Self.HREmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionTypeMaster" EntityType="Self.QuestionTypeMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScoreMaster" EntityType="Self.ScoreMaster" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PerformanceAppraisalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AppraisalDocHeader">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppraisalDocNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AppraisalYear" Type="Int32" />
+          <Property Name="AppraisalPeriodFrom" Type="DateTime" Precision="0" />
+          <Property Name="AppraisalPeriodTo" Type="DateTime" Precision="0" />
+          <Property Name="AppraisalDate" Type="DateTime" Precision="0" />
+          <Property Name="EmployeeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeStrength" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeImprovement" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AppraisalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AppraisalGrade" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="AppraisalTotalScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AppraisalDocLine">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppraisalDocNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AppraisalDocLineNo" Type="Int32" />
+          <Property Name="QuestionLineNo" Type="Int32" />
+          <Property Name="QuestionDesc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="CalculatedScore" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="QuestionWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionType" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AppraisalGradeMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppraisalGrade" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="AppraisalGradeDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ScoreMin" Type="Int32" />
+          <Property Name="ScoreMax" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AppraisalStatusMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppraisalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AppraisalStatusID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AppraisalTemplate">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppraisalYear" Type="Int32" />
+          <Property Name="QuestionLineNo" Type="Int32" />
+          <Property Name="QuestionDesc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="QuestionType" Type="Int32" />
+          <Property Name="QuestionWeight" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="ApprovalHistory">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <Property Name="UserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AppraisalDocNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DepartmentMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EmployeeGroupMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EmployeeMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ContractStart" Type="DateTime" Precision="0" />
+          <Property Name="ContractEnd" Type="DateTime" Precision="0" />
+          <Property Name="AppraisalDate" Type="DateTime" Precision="0" />
+          <Property Name="FirstManager" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SecondManager" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HRStaff" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeSubGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContractYear" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FirstManagerMail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SecondManagerMail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AppraisalYear" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EmployeeSubGroupMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeSubGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="QuestionTypeMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionType" Type="Int32" />
+          <Property Name="QuestionTypeDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionTypeDesc2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ScoreMaster">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="ScoreDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="PerformanceAppraisalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppraisalDocHeaders" EntityType="Self.AppraisalDocHeader" />
+          <EntitySet Name="AppraisalDocLines" EntityType="Self.AppraisalDocLine" />
+          <EntitySet Name="AppraisalGradeMasters" EntityType="Self.AppraisalGradeMaster" />
+          <EntitySet Name="AppraisalStatusMasters" EntityType="Self.AppraisalStatusMaster" />
+          <EntitySet Name="AppraisalTemplates" EntityType="Self.AppraisalTemplate" />
+          <EntitySet Name="ApprovalHistories" EntityType="Self.ApprovalHistory" />
+          <EntitySet Name="DepartmentMasters" EntityType="Self.DepartmentMaster" />
+          <EntitySet Name="EmployeeGroupMasters" EntityType="Self.EmployeeGroupMaster" />
+          <EntitySet Name="EmployeeMasters" EntityType="Self.EmployeeMaster" />
+          <EntitySet Name="EmployeeSubGroupMasters" EntityType="Self.EmployeeSubGroupMaster" />
+          <EntitySet Name="QuestionTypeMasters" EntityType="Self.QuestionTypeMaster" />
+          <EntitySet Name="ScoreMasters" EntityType="Self.ScoreMaster" />
+          <EntitySet Name="CompanyMasters" EntityType="PerformanceAppraisalModel.CompanyMaster" />
+          <EntitySet Name="ActionHistories" EntityType="PerformanceAppraisalModel.ActionHistory" />
+          <FunctionImport Name="spListAppraisalCompleteTask" ReturnType="Collection(PerformanceAppraisalModel.spListAppraisalCompleteTask_Result)">
+          <Parameter Name="DomainName" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Attachments" EntityType="PerformanceAppraisalModel.Attachment" />
+          <EntitySet Name="HREmployees" EntityType="PerformanceAppraisalModel.HREmployee" />
+        </EntityContainer>
+        <EntityType Name="CompanyMaster">
+          <Key>
+            <PropertyRef Name="CompanyNo" />
+          </Key>
+          <Property Name="CompanyNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyAD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyFullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyGroup" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ActionHistory">
+          <Key>
+            <PropertyRef Name="RowID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AppraisalDocNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="AppraisalYear" Type="Int32" />
+          <Property Name="Responsibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="spListAppraisalCompleteTask_Result">
+          <Property Type="String" Name="EmployeeID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="DepartmentName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CompanyID" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Position" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FirstManager" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SecondManager" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="HRStaff" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="AppraisalDocNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="AppraisalYear" Nullable="true" />
+          <Property Type="String" Name="AppraisalStatus" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="FileNo" />
+          </Key>
+          <Property Name="FileNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileDescription" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Attachment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="JobsID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="HREmployee">
+          <Key>
+            <PropertyRef Name="EmployeeNo" />
+          </Key>
+          <Property Name="EmployeeNo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GivenName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DomainName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PerformanceAppraisalModelStoreContainer" CdmEntityContainer="PerformanceAppraisalEntities">
+          <EntitySetMapping Name="AppraisalDocHeaders">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.AppraisalDocHeader">
+              <MappingFragment StoreEntitySet="AppraisalDocHeader">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="AppraisalDocNo" ColumnName="AppraisalDocNo" />
+                <ScalarProperty Name="AppraisalYear" ColumnName="AppraisalYear" />
+                <ScalarProperty Name="AppraisalPeriodFrom" ColumnName="AppraisalPeriodFrom" />
+                <ScalarProperty Name="AppraisalPeriodTo" ColumnName="AppraisalPeriodTo" />
+                <ScalarProperty Name="AppraisalDate" ColumnName="AppraisalDate" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="EmployeeStrength" ColumnName="EmployeeStrength" />
+                <ScalarProperty Name="EmployeeImprovement" ColumnName="EmployeeImprovement" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AppraisalStatus" ColumnName="AppraisalStatus" />
+                <ScalarProperty Name="AppraisalGrade" ColumnName="AppraisalGrade" />
+                <ScalarProperty Name="AppraisalTotalScore" ColumnName="AppraisalTotalScore" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppraisalDocLines">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.AppraisalDocLine">
+              <MappingFragment StoreEntitySet="AppraisalDocLine">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="AppraisalDocNo" ColumnName="AppraisalDocNo" />
+                <ScalarProperty Name="AppraisalDocLineNo" ColumnName="AppraisalDocLineNo" />
+                <ScalarProperty Name="QuestionLineNo" ColumnName="QuestionLineNo" />
+                <ScalarProperty Name="QuestionDesc" ColumnName="QuestionDesc" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="CalculatedScore" ColumnName="CalculatedScore" />
+                <ScalarProperty Name="QuestionWeight" ColumnName="QuestionWeight" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppraisalGradeMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.AppraisalGradeMaster">
+              <MappingFragment StoreEntitySet="AppraisalGradeMaster">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="AppraisalGrade" ColumnName="AppraisalGrade" />
+                <ScalarProperty Name="AppraisalGradeDesc" ColumnName="AppraisalGradeDesc" />
+                <ScalarProperty Name="ScoreMin" ColumnName="ScoreMin" />
+                <ScalarProperty Name="ScoreMax" ColumnName="ScoreMax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppraisalStatusMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.AppraisalStatusMaster">
+              <MappingFragment StoreEntitySet="AppraisalStatusMaster">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="AppraisalStatus" ColumnName="AppraisalStatus" />
+                <ScalarProperty Name="AppraisalStatusID" ColumnName="AppraisalStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppraisalTemplates">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.AppraisalTemplate">
+              <MappingFragment StoreEntitySet="AppraisalTemplate">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="AppraisalYear" ColumnName="AppraisalYear" />
+                <ScalarProperty Name="QuestionLineNo" ColumnName="QuestionLineNo" />
+                <ScalarProperty Name="QuestionDesc" ColumnName="QuestionDesc" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="QuestionWeight" ColumnName="QuestionWeight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApprovalHistories">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.ApprovalHistory">
+              <MappingFragment StoreEntitySet="ApprovalHistory">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="AppraisalDocNo" ColumnName="AppraisalDocNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepartmentMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.DepartmentMaster">
+              <MappingFragment StoreEntitySet="DepartmentMaster">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeGroupMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.EmployeeGroupMaster">
+              <MappingFragment StoreEntitySet="EmployeeGroupMaster">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmployeeGroup" ColumnName="EmployeeGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.EmployeeMaster">
+              <MappingFragment StoreEntitySet="EmployeeMaster">
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="AppraisalYear" ColumnName="AppraisalYear" />
+                <ScalarProperty Name="SecondManagerMail" ColumnName="SecondManagerMail" />
+                <ScalarProperty Name="FirstManagerMail" ColumnName="FirstManagerMail" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="ContractStart" ColumnName="ContractStart" />
+                <ScalarProperty Name="ContractEnd" ColumnName="ContractEnd" />
+                <ScalarProperty Name="AppraisalDate" ColumnName="AppraisalDate" />
+                <ScalarProperty Name="FirstManager" ColumnName="FirstManager" />
+                <ScalarProperty Name="SecondManager" ColumnName="SecondManager" />
+                <ScalarProperty Name="HRStaff" ColumnName="HRStaff" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="EmployeeGroup" ColumnName="EmployeeGroup" />
+                <ScalarProperty Name="EmployeeSubGroup" ColumnName="EmployeeSubGroup" />
+                <ScalarProperty Name="ContractYear" ColumnName="ContractYear" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeSubGroupMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.EmployeeSubGroupMaster">
+              <MappingFragment StoreEntitySet="EmployeeSubGroupMaster">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="EmployeeSubGroup" ColumnName="EmployeeSubGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionTypeMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.QuestionTypeMaster">
+              <MappingFragment StoreEntitySet="QuestionTypeMaster">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="QuestionTypeDesc" ColumnName="QuestionTypeDesc" />
+                <ScalarProperty Name="QuestionTypeDesc2" ColumnName="QuestionTypeDesc2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScoreMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.ScoreMaster">
+              <MappingFragment StoreEntitySet="ScoreMaster">
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="ScoreDesc" ColumnName="ScoreDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyMasters">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.CompanyMaster">
+              <MappingFragment StoreEntitySet="CompanyMaster">
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
+                <ScalarProperty Name="CompanyGroup" ColumnName="CompanyGroup" />
+                <ScalarProperty Name="CompanyFullName" ColumnName="CompanyFullName" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+                <ScalarProperty Name="CompanyAD" ColumnName="CompanyAD" />
+                <ScalarProperty Name="CompanyNo" ColumnName="CompanyNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActionHistories">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.ActionHistory">
+              <MappingFragment StoreEntitySet="ActionHistory">
+                <ScalarProperty Name="Responsibility" ColumnName="Responsibility" />
+                <ScalarProperty Name="AppraisalYear" ColumnName="AppraisalYear" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AppraisalDocNo" ColumnName="AppraisalDocNo" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spListAppraisalCompleteTask" FunctionName="PerformanceAppraisalModel.Store.spListAppraisalCompleteTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PerformanceAppraisalModel.spListAppraisalCompleteTask_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="FirstManager" ColumnName="FirstManager" />
+                <ScalarProperty Name="SecondManager" ColumnName="SecondManager" />
+                <ScalarProperty Name="HRStaff" ColumnName="HRStaff" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AppraisalDocNo" ColumnName="AppraisalDocNo" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AppraisalYear" ColumnName="AppraisalYear" />
+                <ScalarProperty Name="AppraisalStatus" ColumnName="AppraisalStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Attachments">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachments">
+                <ScalarProperty Name="JobsID" ColumnName="JobsID" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Attachment1" ColumnName="Attachment" />
+                <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileNo" ColumnName="FileNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HREmployees">
+            <EntityTypeMapping TypeName="PerformanceAppraisalModel.HREmployee">
+              <MappingFragment StoreEntitySet="HREmployee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DomainName" ColumnName="DomainName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="GivenName" ColumnName="GivenName" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

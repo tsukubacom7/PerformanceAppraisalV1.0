@@ -1,0 +1,56 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PerformanceAppraisalProj.SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+        <div class="page">
+            <div class="header">
+                <div>
+                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/ebidding2.jpg" Width="100%" />
+                </div>
+                <div class="title">
+                    <h1>Gulf - Performance Appraisal 
+                    </h1>
+                </div>
+                <div class="loginDisplay">
+                    Welcome : <span class="bold">
+                        <asp:Label ID="lblLoginName" runat="server" Text=""></asp:Label>
+                    </span>
+                </div>
+                <div class="clear hideSkiplink">
+                    <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
+                        IncludeStyleBlock="false" Orientation="Horizontal">
+                        <Items>
+                            <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" Value="0" />
+                            <asp:MenuItem NavigateUrl="~/AppraisalTask.aspx" Text="Task List" Value="1" />
+                            <asp:MenuItem NavigateUrl="~/CreateAppraisal.aspx" Text="Create Appraisal Employee" Value="2" />
+                            <asp:MenuItem NavigateUrl="~/Form/EmployeeManagement.aspx" Text="Employee Management" Value="3" />
+                            <asp:MenuItem NavigateUrl="~/AppraisalHistory.aspx" Text="Appraisal History" Value="4" />
+                            <asp:MenuItem Text="Report" Value="5">
+                                <asp:MenuItem NavigateUrl="http://gulfmax.gulfelectric.co.th/rassamples/en/asp/rPortfolio/HTMLViewers/interactiveViewer_HR.asp?ReportName=C%3A%5CProgram+Files%5CCrystal+Decisions%5CReport+Application+Server+9%5CReports%5CPA_Form%2Erpt"
+                                    Text="Print Appraisal Form" />
+                                <asp:MenuItem NavigateUrl="http://gulfmax.gulfelectric.co.th/rassamples/en/asp/rPortfolio/HTMLViewers/interactiveViewer_HR.asp?ReportName=C%3A%5CProgram+Files%5CCrystal+Decisions%5CReport+Application+Server+9%5CReports%5CPA_Summary%2Erpt"
+                                    Text="Performance Appraisal Summary" />
+                            </asp:MenuItem>
+                        </Items>
+                    </asp:Menu>
+                </div>
+            </div>
+            <div class="main">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </form>
+</body>
+</html>
